@@ -1,0 +1,16 @@
+<div *ngIf='barChartData && barChartLabels' class="card">
+  <div class="card-header">
+    <div class="card-header-actions">
+      <a href="https://hackmd.io/@chuan1010/Syk2_anCq">
+        <small class="text-muted">docs</small>
+      </a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="chart-wrapper">
+      <canvas baseChart class="chart" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+        [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)"></canvas>
+    </div>
+  </div>
+</div>

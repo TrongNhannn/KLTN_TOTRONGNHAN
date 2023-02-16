@@ -1,0 +1,189 @@
+<div class="animated fadeIn">
+  <div class="card">
+    <div class="card-header">
+      <i class="cui-pencil icons"></i>
+      <strong>Assignment List</strong>
+      <div class="card-header-actions">
+        <a href="#/dashboard/assignmentManagement/create"><button class="btn btn-primary" type="button">Add
+            More</button></a></div>
+    </div>
+    <div class="card-body">
+      <table class='table table-striped' [style.text-align]="'center'">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Create time</th>
+            <th>Release Time</th>
+            <th>Deadline</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let assignment of assignments">
+            <td>{{assignment.name}}</td>
+            <td>{{assignment.createTime | date:'short'}}</td>
+            <td>{{assignment.assessmentTimes[0].startTime | date:'short'}}</td>
+            <td>{{assignment.assessmentTimes[0].endTime | date:'short'}}</td>
+            <td><button id="{{assignment.name}}" class="btn btn-info" data-toggle="modal"
+                (click)="editModal.show();setSelectAssignment(assignment);getAssignmentOrder()"><i class="cui-pencil icons"></i></button>
+            </td>
+            <td>
+              <button id="{{assignment.name}}" class="btn btn-danger" type="button" data-toggle="modal"
+                (click)="deleteModal.show();setSelectAssignment(assignment)"><i class="cui-trash icons"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--Alert Delete Assignment Modal-->
+<div bsModal #deleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dangerModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-danger" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Delete Assignment</h4>
+        <button type="button" class="close" (click)="deleteModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--Delete Assignment Main-->
+      <div class="modal-body">
+        <p>Do you Want to Delete this "{{assignmentName}}" Assignment&hellip;</p>
+        <div *ngIf='isDeleteProgress'>
+          <progressbar class="progress-bar progress-bar-striped progress-bar-animated" [value]="dynamic" [max]="max"
+            [type]="type">
+          </progressbar>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="deleteModal.hide()">Close</button>
+        <button type="button" class="btn btn-danger" (click)="deleteAssignment()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--Edit Assignment Modal-->
+<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Assignment "{{assignmentName}}"</h4>
+        <button type="button" class="close" (click)="editModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--Edit Assignment Main-->
+      <form *ngIf='assignmentForm' class="form-horizontal" [formGroup]="assignmentForm" (ngSubmit)='editAssignment()'>
+        <div class="modal-body">
+          <ng-container *ngIf='!isPeerReview'>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="releaseTime">ReleaseTime</label>
+              <div class="col-md-9">
+                <input class="form-control is-valid" id="releaseTime" type="datetime-local" name="releaseTime"
+                  formControlName='releaseTime'>
+                <span *ngIf="!assignmentForm.get('releaseTime').valid" class="invalid-feedback">Please enter a valid
+                  date</span>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="deadline">Deadline</label>
+              <div class="col-md-9">
+                <input class="form-control is-valid" id="deadline" type="datetime-local" name="deadline"
+                  formControlName='deadline'>
+                <span *ngIf="!assignmentForm.get('deadline').valid" class="invalid-feedback">Please enter a valid
+                  date</span>
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="isPeerReview">
+            <div class="form-group row">
+              <label class="col-md-1 col-form-label">Time</label>
+              <label class="col-md-1 col-form-label"></label>
+              <label class="col-md-2 col-form-label">Round</label>
+              <label class="col-md-2 col-form-label">Action</label>
+              <label class="col-md-3 col-form-label">Start Time</label>
+              <label class="col-md-3 col-form-label">End Time</label>
+            </div>
+            <div formArrayName="reviewTime">
+              <div *ngFor="let round of roundTimeArray; let i = index">
+                <div [formGroupName]="i">
+                  <div class="form-group row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">&ensp;{{ i + 1 }}</div>
+                    <div class="col-md-2" *ngIf="i == 0">Do Homework</div>
+                    <div class="col-md-2" *ngIf="i !== 0">Fix Issues</div>
+                    <div class="col-md-3">
+                      <input class="form-control" id="{{i}}_startTime" type="datetime-local" name="startTime"
+                      formControlName='startTime' placeholder="date">
+                      <span *ngIf="!roundTimeArray[i].get('startTime').valid" class="invalid-feedback">Please enter a valid date</span>
+                    </div>
+                    <div class="col-md-3">
+                      <input class="form-control" id="{{i}}_endTime" type="datetime-local" name="endTime"
+                      formControlName='endTime' placeholder="date">
+                    <span *ngIf="!roundTimeArray[i].get('endTime').valid" class="invalid-feedback">Please enter a valid date</span>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" *ngIf="i == 0">Review Homework</div>
+                    <div class="col-md-2" *ngIf="i !== 0">Approve Homework</div>
+                    <div class="col-md-3">
+                      <input class="form-control" id="{{i}}_reviewStartTime" type="datetime-local" name="reviewStartTime"
+                        formControlName='reviewStartTime' placeholder="date">
+                      <span *ngIf="!roundTimeArray[i].get('reviewStartTime').valid" class="invalid-feedback">Please enter a valid
+                        date</span>
+                    </div>
+                    <div class="col-md-3">
+                      <input class="form-control" id="{{i}}_reviewEndTime" type="datetime-local" name="reviewEndTime"
+                        formControlName='reviewEndTime' placeholder="date">
+                      <span *ngIf="!roundTimeArray[i].get('reviewEndTime').valid" class="invalid-feedback">Please enter a valid date</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="description"> Assignment Description</label>
+            <div class="col-md-9">
+              <ckeditor [config]="editorConfig" name='description' id="description" formControlName='description'
+                [editor]="Editor">
+              </ckeditor>
+            </div>
+          </div>
+          <div *ngIf="showAssessment == true" class="form-group row">
+            <div class="col-md-3">Assignment Assessment</div>
+            <div class="col-md-2">Order & Score :</div>          
+          </div>
+          <div class="form-group row">
+            <div class="col-md-3"></div>
+            <div class="col-md-2">
+              <li class="list-group-item sortable" draggable="false" style="cursor: not-allowed; 
+                  background-color: white;" *ngFor="let item of order; let i = index;">{{ i+1 }}. {{ item }}
+                <select class="form-control" (change)="selectChangeHandler(item, $event)">
+                  <option *ngFor="let op of getScoreOptions(item)" value="{{ op }}" [selected]="statusScore.get(item) == op">{{ op }}%</option>
+                </select>
+              </li>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="editModal.hide(); setShowAssessment(false);">Close</button>
+          <button type="submit" class="btn btn-primary" [disabled]='!assignmentForm.valid'>Save changes</button>
+        </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<progedu-error-modal [errorTitle]='errorTitle' [errorResponse]="errorResponse"></progedu-error-modal>

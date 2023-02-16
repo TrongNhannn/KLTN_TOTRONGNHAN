@@ -1,0 +1,8 @@
+docs/
+.data/
+.env
+*.swp
+.idea/
+*.iml
+*.log
+

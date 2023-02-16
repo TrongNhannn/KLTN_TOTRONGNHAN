@@ -1,0 +1,58 @@
+<div class="animated fadeIn">
+  <div class='card'>
+    <div class='card-header'>
+      <i class='fa fa-align-justify'></i>
+      <div class="card-header-actions">
+        <div class='ml-auto'>
+          <span class="ovol NB">
+            Initial
+          </span>
+          <span class="ovol CPF">
+            Unfinished Review
+          </span>
+          <span class="ovol BS">
+            Completed Reviewed
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class='card-body'>
+      <table class='table table-striped' style="text-align:center;">
+        <table class='table table-striped' style="text-align:center;">
+          <thead>
+            <tr>
+              <th width="10%" class='text-left'></th>
+              <ng-container *ngFor='let col of assignmentTable'>
+                <th width="10%">
+                  <div>{{col.name}}</div>
+                </th>
+              </ng-container>
+              <th class='text-left'></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf='assignmentTable'>
+              <th class='text-left' width="10%">
+                review人數 / <br>PR round次數
+              </th>
+              <ng-container *ngFor='let review of assignmentTable'>
+                <th *ngIf='isRelease(review.assessmentTimes[1].startTime)'>
+                  <p class="circle initialization">
+                    <a *ngIf='!isNA(review)'
+                      id="{{review.name}}_{{review.amount}}_{{review.round}}"
+                      style="color: white;" href="#/studashboard/peerReviewRoundDashboard?assignmentName={{review.name}}">{{review.amount}}/{{review.round}}</a>
+                    <a *ngIf='isNA(review)'>N/A</a>
+                  </p>
+                </th>
+                <th *ngIf='!isRelease(review.assessmentTimes[1].startTime)'>
+                  <a>N/A</a>
+                </th>
+              </ng-container>
+              <th class='text-left'></th>
+            </tr>
+          </tbody>
+        </table>
+      </table>
+    </div>
+  </div>
+</div>

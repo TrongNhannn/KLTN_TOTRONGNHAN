@@ -1,0 +1,66 @@
+<div class="animated fadeIn">
+  <div *ngIf="isTeacher"><a href="#/dashboard/reviewDashboard"><button class="btn btn-primary" type="button">
+    < Back</button></a>
+  </div><br>
+  <div *ngIf='assignment' class="card">
+    <div class="card-header">
+      <i class="cui-pencil icons"></i>
+      <label>{{assignmentName}}</label>
+    </div>
+    <div class="card-body">
+      <div class='row'>
+        <div class="col-lg-6">
+          <span class="h2">Git 專案</span>
+          <div class='row'>
+            <div class="col-md-8">
+              <input type="text" class="form-control" value="{{gitlabAssignmentURL}}" readonly>
+            </div>
+            <button button (click)='copyToClipboard()'><i class="fa fa-copy fa-lg"></i></button>
+          </div>
+          <hr />
+          <span class="h2">作業敘述</span>
+          <div style="margin: 10px;">
+            <ckeditor [(ngModel)]="assignment.description" [editor]="Editor" [disabled]="true" [config]='editorConfig'>
+            </ckeditor>
+          </div>
+          <!--
+          <hr />
+          <span class="h2">作業截止時間</span>
+          <div *ngFor="let time of assignmentTimes; let i = index">
+            <p *ngIf="time.assessmentAction == 'DO'" style="margin: 10px;">第{{(i+2)/2}}輪: {{time.endTime | date:'short'}}</p>
+          </div>
+          <hr />
+          <span class="h2">審查開始時間</span>
+          <div *ngFor="let time of assignmentTimes; let i = index">
+            <p *ngIf="time.assessmentAction == 'REVIEW'" style="margin: 10px;">第{{(i+1)/2}}輪: {{time.startTime | date:'short'}}</p>
+          </div>
+          <hr />
+          <span class="h2">審查結束時間</span>
+          <div *ngFor="let time of assignmentTimes; let i = index">
+            <p *ngIf="time.assessmentAction == 'REVIEW'" style="margin: 10px;">第{{(i+1)/2}}輪: {{time.endTime | date:'short'}}</p>
+          </div>
+          -->
+        </div>
+      </div>
+      <hr/>
+      <div class="row">
+        <ul class="timeline" id="timeline" style="overflow:auto;">
+          <li *ngFor="let time of assignmentTimes; index as i" class="li {{isCompleted(i)}}" >
+            <div class="timestamp" style="text-align: center; font-weight: bold;">
+              <span>{{time.endTime | date:'yyyy.MM.dd'}}<br>{{time.endTime | date:'shortTime'}}</span>
+            </div>
+            <div class="status">
+              <h6 style="text-align:center; color: #000000" *ngIf="i == 0"> &emsp;作業截止&emsp;<br>第一輪審查開始</h6>
+              <h6 style="text-align:center; color: #000000" *ngIf="i == 1"> 第一輪審查結束<br>作業修改開始</h6>
+              <h6 style="text-align:center; color: #000000" *ngIf="i == 2"> 作業修改截止<br>第二輪審查開始</h6>
+              <h6 style="text-align:center; color: #000000" *ngIf="i == 3"> 第二輪審查結束<br>確認審查結果</h6>
+            </div>
+          </li>
+         </ul>
+      </div>
+      <hr>
+      <app-review-commit-record [type]=assignment.type [commits]=commits [feedbacks]=feedbacks [screenshotUrls]=screenshotUrls [reviewFeedbacks]=reviewFeedbacks
+        (messageToEmit)="updateFeedback($event)" [username]=username [assignmentName]=assignmentName [isTeacher]=isTeacher ></app-review-commit-record>
+    </div>
+  </div>
+</div>
