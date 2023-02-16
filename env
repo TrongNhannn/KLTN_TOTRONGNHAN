@@ -1,0 +1,84 @@
+
+# --------------------------- Main Config ---------------------------- #
+
+COMPOSE_PROJECT_NAME=tesst-progedu
+
+DB_PORT=23306
+DB_HOST=db
+
+GITLAB_HTTP_PORT=22080
+GITLAB_HOST=http://103.82.21.118:22080
+GITLAB_SSH_PORT=22022
+WEB_GITLAB_ADMIN_PERSONAL_TOKEN=1MiUAPg11HTY2xYn7cjM
+
+WEB_PORT=22000
+WEB_EXTERNAL_URL=http://103.82.21.118:22000
+
+SPRING_SERVER_PORT=22001
+SPRING_SERVER_EXTERNAL_URL=http://103.82.21.118:22001
+
+FRONT_END_PORT=22004
+
+JENKINS_PORT=8080
+WEB_JENKINS_URL=http://103.82.21.118:8080
+WEB_JENKINS_API_TOKEN=11a28ad6dad2ab3ab0020ce8d2563ad8e0
+
+SELENIUM_PORT=4444
+WEB_SELENIUM_URL=http://103.82.21.118:4444
+
+MONGO_PORT=10017
+MONGO_HOST_URL=103.82.21.118:10017
+
+# --------------------------- Minor Config ---------------------------- #
+
+###### Database Config 
+
+DB_USER=root
+DB_PASSWORD=123456
+DB_ROOT_PASSWORD=123456
+DB_DATABASE=ProgEdu
+DB_CONNECTION_OPTION=?relaxAutoCommit=true&useSSL=false&useUnicode=true&characterEncoding=utf-8
+
+###### Mongo Config 
+
+MONGO_ROOT_USER=root
+MONGO_ROOT_PASSWORD=123456
+MONGO_DATABASE=progedu
+# This should not the same as MONGO_ROOT_USER
+MONGO_USER=progedu_root
+MONGO_PASSWORD=123456
+MONGO_DB_CONNECTION_OPTION=&readPreference=primary&ssl=false
+
+###### Gitlab Config
+
+GITLAB_ROOT_PASSWORD=rootrootrootroot
+
+###### ProgEdu Gitlab Connection Config
+
+WEB_GITLAB_ADMIN_USERNAME=root
+
+###### ProgEdu Jenkins Connection Config
+
+WEB_JENKINS_ADMIN_USERNAME=admin
+WEB_JENKINS_ADMIN_PASSWORD=admin
+
+###### ProgEdu Mailer Config 
+
+MAIL_USER=admin@example.com
+MAIL_PASSWORD=example-password
+
+###### Download Android SDK
+
+SDK_SETUP=true
+SDK_PLATFORMS=android-28
+SDK_BUILD_TOOLS=28.0.3
+
+###### LOG
+
+LOG_LEVEL=error
+
+# --------------------------- Deprecated ---------------------------- #
+
+# This need have empty value, so don't care about it, this will fix later
+WEB_API_BASEURI=
+
