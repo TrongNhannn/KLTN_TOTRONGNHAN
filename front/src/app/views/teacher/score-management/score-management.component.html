@@ -4,12 +4,13 @@
       <div class="col-md-6">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title" style="font-weight: bold; padding: 10px;">新增成績</h5>
+            <h5 class="card-title" style="font-weight: bold; padding: 10px;">Add grade</h5>
             <div class="card">
               <div class="card-body">
                 <form *ngIf="scoreForm" [formGroup]="scoreForm" (ngSubmit)="uploadMultipleScore()">
                     <div class="form-group row">
-                        <label class="col-md-6 col-form-label" for="file-input">範例檔案
+                        <label class="col-md-6 col-form-label" for="file-input">
+                          Sample file
                         </label>
                         <div class="col-md-6">
                         <a href="{{NEW_SERVER_URL}}/score/getScoreCsvFile" download>
@@ -19,7 +20,7 @@
                     </div>
                     <hr/>
                     <div class="form-group row">
-                        <label class="col-md-4 col-form-label" for="method">類型</label>
+                        <label class="col-md-4 col-form-label" for="method">Type</label>
                         <div class="col-md-8">
                           <div class="form-check form-check-inline mr-5">
                             <input class="form-check-input" type="radio" name="method" id="methodRadio2" value="Assignment"
@@ -35,7 +36,7 @@
                     </div>
                     <ng-container *ngIf="scoreForm.value.method == 'Assignment'">
                       <div class="form-group row">
-                        <label class="col-md-4 col-form-label" for="assignmentName">作業名稱</label>
+                        <label class="col-md-4 col-form-label" for="assignmentName">Job name</label>
                         <select class="form-control col-md-5" formControlName="assignmentName" placeholder="Enter assignment Name">
                           <option *ngFor="let assignment of assignmentTable; index as i" [ngValue]="assignment.name">{{assignment.name}}</option>
                         </select>
@@ -43,12 +44,12 @@
                     </ng-container>
                     <ng-container *ngIf="scoreForm.value.method == 'Exam'">
                       <div class="form-group row">
-                        <label class="col-md-4 col-form-label" for="examName">作業名稱</label>
+                        <label class="col-md-4 col-form-label" for="examName">Job name</label>
                         <input type="text" class="form-control col-md-5" id="examName" formControlName="examName" placeholder="Enter Exam Name">
                       </div>
                     </ng-container>
                     <div class="form-group row">
-                        <label class="col-md-6 col-form-label" for="file-input">上傳檔案(accept csv)
+                        <label class="col-md-6 col-form-label" for="file-input">Upload file(accept csv)
                         </label>
                         <div class="col-md-6">
                         <input type="file" id="file-input" name="file-input" (change)="changeFileListener($event)">
@@ -69,7 +70,7 @@
                         <button class="btn btn-primary" [disabled]='checkForm()' type="submit">Upload</button>
                     </div>
                 </form>
-                <button class='btn btn-ghost-secondary active' (click)="isCollapsed = !isCollapsed">csv檔範例</button>
+                <button class='btn btn-ghost-secondary active' (click)="isCollapsed = !isCollapsed">csv file example</button>
                 <div [collapse]="isCollapsed">
                 <hr>
                 <img
@@ -84,7 +85,7 @@
       <div class="col-md-6">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title" style="font-weight: bold; padding: 10px;">成績列表</h5>
+            <h5 class="card-title" style="font-weight: bold; padding: 10px;"> Grade list</h5>
             <table class="table" [style.text-align]="'center'">
               <thead>
                 <tr>

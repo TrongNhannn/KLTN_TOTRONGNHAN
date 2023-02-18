@@ -33,7 +33,7 @@
           <tbody>
             <tr *ngIf='assignmentTable'>
               <th class='text-left' width="10%">
-                review人數 / <br>PR round次數
+                Number of reviewers / <br>Number of PR rounds
               </th>
               <ng-container *ngFor='let review of assignmentTable'>
                 <th *ngIf='isRelease(review.assessmentTimes[1].startTime)'>

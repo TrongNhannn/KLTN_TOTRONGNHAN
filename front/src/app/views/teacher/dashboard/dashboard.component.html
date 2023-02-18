@@ -29,12 +29,12 @@
       <table class='table table-striped' style="text-align:center;">
         <thead>
           <tr>
-            <th width="10%" class='text-left'>學生</th>
+            <th width="10%" class='text-left'>Name</th>
             <th width="10%" *ngFor='let col of assignmentTable'>{{col.name}}</th>
             <th class='text-left'></th>
           </tr>
           <tr>
-            <th width="10%" class='text-left' style="vertical-align: middle">狀態</th>
+            <th width="10%" class='text-left' style="vertical-align: middle">Status</th>
             <th width="10%" *ngFor='let col of assignmentTable; index as i'>
               <p class="square_b {{getStatus(i)}}">
                 {{getStatusString(i)}}
@@ -42,12 +42,12 @@
             <th class='text-left'></th>
           </tr>
           <tr>
-            <th width="10%" class='text-left'>作業開始時間</th>
+            <th width="10%" class='text-left'>Starttime</th>
             <th width="10%" *ngFor='let col of assignmentTable' style="vertical-align: middle">{{col.assessmentTimes[0].startTime | date:'yyyy-MM-dd'}}</th>
             <th class='text-left'></th>
           </tr>
           <tr>
-            <th width="10%" class='text-left'>作業結束時間</th>
+            <th width="10%" class='text-left'>Endtime</th>
             <th width="10%" *ngFor='let col of assignmentTable' style="vertical-align: middle">{{col.assessmentTimes[0].endTime | date:'yyyy-MM-dd'}}</th>
             <th class='text-left'></th>
           </tr>

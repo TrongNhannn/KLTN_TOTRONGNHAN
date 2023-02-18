@@ -10,7 +10,7 @@
     <div class="card-body">
       <div class='row'>
         <div class="col-lg-6">
-          <span class="h2">Git 專案</span>
+          <span class="h2">Git project</span>
           <div class='row'>
             <div class="col-md-8">
               <input type="text" class="form-control" value="{{gitlabAssignmentURL}}" readonly>
@@ -18,7 +18,7 @@
             <button button (click)='copyToClipboard()'><i class="fa fa-copy fa-lg"></i></button>
           </div>
           <hr />
-          <span class="h2">作業敘述</span>
+          <span class="h2">Job description</span>
           <div style="margin: 10px;">
             <ckeditor [(ngModel)]="assignment.description" [editor]="Editor" [disabled]="true" [config]='editorConfig'>
             </ckeditor>
@@ -50,10 +50,10 @@
               <span>{{time.endTime | date:'yyyy.MM.dd'}}<br>{{time.endTime | date:'shortTime'}}</span>
             </div>
             <div class="status">
-              <h6 style="text-align:center; color: #000000" *ngIf="i == 0"> &emsp;作業截止&emsp;<br>第一輪審查開始</h6>
-              <h6 style="text-align:center; color: #000000" *ngIf="i == 1"> 第一輪審查結束<br>作業修改開始</h6>
-              <h6 style="text-align:center; color: #000000" *ngIf="i == 2"> 作業修改截止<br>第二輪審查開始</h6>
-              <h6 style="text-align:center; color: #000000" *ngIf="i == 3"> 第二輪審查結束<br>確認審查結果</h6>
+              <h6 style="text-align:center; color: #000000" *ngIf="i == 0"> &emsp;Stop working&emsp;<br>First round of review begins</h6>
+              <h6 style="text-align:center; color: #000000" *ngIf="i == 1"> End of the first round of review<br>Job modification started</h6>
+              <h6 style="text-align:center; color: #000000" *ngIf="i == 2">Assignment Modification Deadline<br>Second round of review begins</h6>
+              <h6 style="text-align:center; color: #000000" *ngIf="i == 3"> The second round of review ends<br>Confirm the review result</h6>
             </div>
           </li>
          </ul>

@@ -2,8 +2,8 @@
   <ng-container *ngFor="let reviewFeedback of reviewFeedbacks;index as i;">
     <span class="h2">
       <div class="form-group row" style="margin-right: 5px;">
-        <label class="col-md-7 col-form-label">審查結果 - {{i+1}}</label>
-        <label class="col-md-5 col-form-label" style="text-align: right;" *ngIf=isTeacher>審查人：
+        <label class="col-md-7 col-form-label">Review results - {{i+1}}</label>
+        <label class="col-md-5 col-form-label" style="text-align: right;" *ngIf=isTeacher>Examiner:
           {{reviewFeedback.name}}</label>
       </div>
     </span>
@@ -16,10 +16,10 @@
       <table class='table table-responsive-sm table-bordered table-hover table-outline'>
         <thead class="thead-light">
           <tr>
-            <th class='w-20'>審查項目</th>
-            <th class='w-5'>審查結果</th>
-            <th class='w-70'>審查意見</th>
-            <th class='w-5'>審查意見的幫助程度</th>
+            <th class='w-20'>Review items</th>
+            <th class='w-5'>Review results</th>
+            <th class='w-70'>Review opinion</th>
+            <th class='w-5'>Helpfulness of review comments</th>
           </tr>
         </thead>
         <tr *ngFor="let reviewDetail of reviewFeedback.Detail;index as j" id='reviewFeedback-bar'>
@@ -42,8 +42,7 @@
           </td>
           <td *ngIf="reviewDetail.score == 2">
             <button *ngIf="reviewDetail.feedbackScore == undefined" type="button" class="btn btn-secondary"
-              (click)="setReviewOne(i);openReviewFeedbackModal(currentReviewPagination[i], reviewDetail, j);feedbackFormFillModal.show()">
-                對審查意見進行評分</button>
+              (click)="setReviewOne(i);openReviewFeedbackModal(currentReviewPagination[i], reviewDetail, j);feedbackFormFillModal.show()">Rate Review Comments</button>
               <div *ngIf="reviewDetail.feedbackScore !== undefined">{{getFeedbackScoreDetail(reviewDetail.feedbackScore)}}</div>
           </td>
           <td *ngIf="reviewDetail.score == 1">Pass</td>
@@ -251,7 +250,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title col-md-6">審查意見的幫助程度</h4>
+        <h4 class="modal-title col-md-6">Helpfulness of review comments</h4>
         <button type="button" class="close" (click)="feedbackFormFillModal.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -277,19 +276,19 @@
           <div class="form-check">
             <input class="form-check-input" type="radio" name="feedbackScore" #radioFeedbackScore id="scoreRadio{{i}}" (click)="checkFeedbackForm()">
             <label *ngIf="i == 0" class="form-check-label" for="scoreRadio{{i}}">
-              0, 沒有意義的審查意見
+              0,Pointless review comments
             </label>
             <label *ngIf="i == 1" class="form-check-label" for="scoreRadio{{i}}">
-              1, 較沒有幫助的審查意見
+              1, Less helpful review comments
             </label>
             <label *ngIf="i == 2" class="form-check-label" for="scoreRadio{{i}}">
-              2, 一般的審查意見
+              2,General review comments
             </label>
             <label *ngIf="i == 3" class="form-check-label" for="scoreRadio{{i}}">
-              3, 有幫助的審查意見
+              3, Helpful Review Comments
             </label>
             <label *ngIf="i == 4" class="form-check-label" for="scoreRadio{{i}}">
-              4, 非常有幫助且詳細的審查意見
+              4,Very helpful and detailed review comments
             </label>
           </div>
         </div>
