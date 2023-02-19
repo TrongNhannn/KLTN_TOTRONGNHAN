@@ -12,4 +12,4 @@ COURSE_SCHOOL_EMAIL =
 
 # Tomcat server's IP
 COURSE_TOMCAT_SERVER_IP = http://[TOMCAT_SERVER_IP]
-#eg. http://140.1.1.1:1111 , [WARN] if set to localhost, then Jenkins can't send trigger to tomcat.
+#eg. http://140.1.1.1:22001 , [WARN] if set to localhost, then Jenkins can't send trigger to tomcat.
