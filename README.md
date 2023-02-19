@@ -1,4 +1,4 @@
-![](/readme-images/logo.png)
+
 ## 什麼是ProgEdu?
 
 ProgEdu 是一套能自動檢查, 編譯, 單元測試, 上傳到系統中的專案,
